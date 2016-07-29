@@ -5,6 +5,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.Google;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -36,7 +37,7 @@ public class HelloWorld extends PApplet
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(800, 600, P2D);  // Set up the Applet window to be 800x600
+		size(900, 600, P2D);  // Set up the Applet window to be 800x600
 		                      // The OPENGL argument indicates to use the 
 		                      // Processing library's 2D drawing
 		                      // You'll learn more about processing in Module 3
@@ -46,10 +47,12 @@ public class HelloWorld extends PApplet
 		this.background(200, 200, 200);
 		
 		// Select a map provider
-		AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		AbstractMapProvider provider1 = new Google.GoogleTerrainProvider();
+		AbstractMapProvider provider2 = new Microsoft.RoadProvider();
 		// Set a zoom level
 		int zoomLevel = 10;
 		
+		/*
 		if (offline) {
 			// If you are working offline, you need to use this provider 
 			// to work with the maps that are local on your computer.  
@@ -57,7 +60,7 @@ public class HelloWorld extends PApplet
 			// 3 is the maximum zoom level for working offline
 			zoomLevel = 3;
 		}
-		
+		*/
 		// Create a new UnfoldingMap to be displayed in this window.  
 		// The 2nd-5th arguments give the map's x, y, width and height
 		// When you create your map we want you to play around with these 
@@ -65,14 +68,16 @@ public class HelloWorld extends PApplet
 		// The 6th argument specifies the map provider.  
 		// There are several providers built-in.
 		// Note if you are working offline you must use the MBTilesMapProvider
-		map1 = new UnfoldingMap(this, 50, 50, 350, 500, provider);
+		map1 = new UnfoldingMap(this, 50, 50, 350, 500, provider1);
+		map2 = new UnfoldingMap(this, 450, 50, 350, 500, provider2);
 
 		// The next line zooms in and centers the map at 
 	    // 32.9 (latitude) and -117.2 (longitude)
 	    map1.zoomAndPanTo(zoomLevel, new Location(32.9f, -117.2f));
-		
+	    map2.zoomAndPanTo(zoomLevel, new Location(40.0f, -75.6f));
 		// This line makes the map interactive
 		MapUtils.createDefaultEventDispatcher(this, map1);
+		MapUtils.createDefaultEventDispatcher(this, map2);
 		
 		// TODO: Add code here that creates map2 
 		// Then you'll modify draw() below
@@ -84,6 +89,7 @@ public class HelloWorld extends PApplet
 		// So far we only draw map1...
 		// TODO: Add code so that both maps are displayed
 		map1.draw();
+		map2.draw();
 	}
 
 	
