@@ -84,7 +84,7 @@ public class EarthquakeCityMap extends PApplet {
 		    	float mag = Float.parseFloat(magObj.toString());
 	    		SimplePointMarker s = createMarker(f);
 	    		if (mag < 4.0) {
-	    			s.setRadius(5);
+	    			s.setRadius(6);
 	    			s.setColor(blue);
 	    		}
 	    		else if (mag >= 4.0 && mag <= 4.9) {
@@ -135,6 +135,28 @@ public class EarthquakeCityMap extends PApplet {
 	private void addKey() 
 	{	
 		// Remember you can use Processing's graphics methods here
-		rect(30,50,130,250);
+		// Draw legend box
+		fill(255,255,255);		//white rect box
+		rect(30,50,150,240);
+		// first legend
+		fill(255, 0, 0);		// red marker
+		ellipse(50,104,12,12);
+		fill(50);				// black text
+		textSize(12);
+		text("5.0+ Magnitude",80,110);
+		// second legend
+		fill(255, 255, 0);		// yellow marker
+		ellipse(50,166,8,8);		
+		fill(50);				// black text
+		textSize(12);
+		text("4.0+ Magnitude",80,170);
+		// Third legend
+		fill(0, 0, 255);		// blue marker
+		ellipse(50,227,6,6);	
+		fill(50);				// black text
+		textSize(12);
+		text("Below 4.0",80,230);
+		
+
 	}
 }
