@@ -75,17 +75,41 @@ public class EarthquakeCityMap extends PApplet {
 	    
 	    // These print statements show you (1) all of the relevant properties 
 	    // in the features, and (2) how to get one property and use it
+	    int blue = color(0, 0, 255);
+	    int yellow = color(255, 255, 0);
+	    int red = color(255, 0, 0);
 	    if (earthquakes.size() > 0) {
-	    	PointFeature f = earthquakes.get(0);
-	    	System.out.println(f.getProperties());
-	    	Object magObj = f.getProperty("magnitude");
-	    	float mag = Float.parseFloat(magObj.toString());
+	    	for (PointFeature f : earthquakes) {
+		    	Object magObj = f.getProperty("magnitude");
+		    	float mag = Float.parseFloat(magObj.toString());
+	    		SimplePointMarker s = createMarker(f);
+	    		if (mag < 4.0) {
+	    			s.setRadius(5);
+	    			s.setColor(blue);
+	    		}
+	    		else if (mag >= 4.0 && mag <= 4.9) {
+	    			s.setRadius(8);
+	    			s.setColor(yellow);
+	    		}
+	    		else {
+	    			s.setRadius(12);
+	    			s.setColor(red);
+	    		}
+		    	markers.add(s);
+		    }
+//	    	PointFeature f = earthquakes.get(0);
+//	    	System.out.println(f.getProperties());
+//	    	Object magObj = f.getProperty("magnitude");
+//	    	float mag = Float.parseFloat(magObj.toString());
+//		    markers.add(createMarker(f));
+		    
 	    	// PointFeatures also have a getLocation method
 	    }
-	    
+	    map.addMarkers(markers);
+
 	    // Here is an example of how to use Processing's color method to generate 
 	    // an int that represents the color yellow.  
-	    int yellow = color(255, 255, 0);
+
 	    
 	    //TODO: Add code here as appropriate
 	}
@@ -111,6 +135,6 @@ public class EarthquakeCityMap extends PApplet {
 	private void addKey() 
 	{	
 		// Remember you can use Processing's graphics methods here
-	
+		rect(30,50,130,250);
 	}
 }
