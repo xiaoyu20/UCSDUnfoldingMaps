@@ -162,6 +162,12 @@ public class EarthquakeCityMap extends PApplet {
 	// set this "country" property already.  Otherwise it returns false.
 	private boolean isLand(PointFeature earthquake) {
 		
+		for (Marker country:countryMarkers) {
+			if (isInCountry(earthquake, country)) {
+				return true;
+			}
+		}
+		
 		// IMPLEMENT THIS: loop over all countries to check if location is in any of them
 		
 		// TODO: Implement this method using the helper method isInCountry
