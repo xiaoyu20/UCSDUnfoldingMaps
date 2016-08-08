@@ -16,7 +16,7 @@ public class CityMarker extends SimplePointMarker {
 	
 	// The size of the triangle marker
 	// It's a good idea to use this variable in your draw method
-	public static final int TRI_SIZE = 5;  
+	public static final int TRI_SIZE = 16;  
 	
 	public CityMarker(Location location) {
 		super(location);
@@ -39,10 +39,19 @@ public class CityMarker extends SimplePointMarker {
 	 * Implementation of method to draw marker on the map.
 	 */
 	public void draw(PGraphics pg, float x, float y) {
+		
 		// Save previous drawing style
 		pg.pushStyle();
 		
 		// TODO: Add code to draw a triangle to represent the CityMarker
+		pg.fill(255,0,0);
+		float x1 = x;
+		float y1 = (float) (y - Math.sqrt(3)/3*TRI_SIZE); 
+		float x2 = x - TRI_SIZE/2;
+		float y2 = (float) (y + Math.sqrt(3)/6*TRI_SIZE);
+		float x3 = x + TRI_SIZE/2;
+		float y3 = y2;
+		pg.triangle(x1, y1, x2, y2, x3, y3);
 		
 		// Restore previous drawing style
 		pg.popStyle();

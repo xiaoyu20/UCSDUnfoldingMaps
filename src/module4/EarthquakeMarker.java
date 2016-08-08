@@ -10,7 +10,7 @@ import processing.core.PGraphics;
  * @author Your name here
  *
  */
-public abstract class EarthquakeMarker extends SimplePointMarker
+public abstract class EarthquakeMarker extends SimplePointMarker implements processing.core.PConstants
 {
 	
 	// Did the earthquake occur on land?  This will be set by the subclasses.
@@ -64,8 +64,13 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 		// call abstract method implemented in child class to draw marker shape
 		drawEarthquake(pg, x, y);
 		
-		// OPTIONAL TODO: draw X over marker if within past day		
-		
+		// OPTIONAL TODO: draw X over marker if within past day	
+		if (this.getAge().equals("Past Day")) {
+			pg.fill(0,0,0);
+			pg.textSize(20);
+			pg.textAlign(CENTER,CENTER);
+			pg.text("X", x, y);
+		}
 		// reset to previous styling
 		pg.popStyle();
 		
@@ -77,6 +82,15 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 	// You might find the getters below helpful.
 	private void colorDetermine(PGraphics pg) {
 		//TODO: Implement this method
+		if (this.getDepth() >= THRESHOLD_DEEP) {
+			pg.fill(255,0,0);
+		}
+		else if (this.getDepth() >= THRESHOLD_INTERMEDIATE) {
+			pg.fill(0,0,255);
+		}
+		else {
+			pg.fill(255,255,0);
+		}
 	}
 	
 	
@@ -86,6 +100,10 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 	
 	public float getMagnitude() {
 		return Float.parseFloat(getProperty("magnitude").toString());
+	}
+	
+	public String getAge() {
+		return (String) getProperty("age");
 	}
 	
 	public float getDepth() {

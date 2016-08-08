@@ -2,6 +2,7 @@ package module4;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -76,7 +77,7 @@ public class EarthquakeCityMap extends PApplet {
 		
 		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
 		// one of the lines below.  This will work whether you are online or offline
-		//earthquakesURL = "test1.atom";
+		// earthquakesURL = "test1.atom";
 		//earthquakesURL = "test2.atom";
 		
 		// WHEN TAKING THIS QUIZ: Uncomment the next line
@@ -142,14 +143,15 @@ public class EarthquakeCityMap extends PApplet {
 		text("Earthquake Key", 50, 75);
 		
 		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
+		triangle(50,115.76239f,42,129.6188f,58,129.6188f);
+//		ellipse(50, 125, 15, 15);
 		fill(color(255, 255, 0));
 		ellipse(50, 175, 10, 10);
 		fill(color(0, 0, 255));
 		ellipse(50, 225, 5, 5);
 		
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
+		text("City Markers", 75, 125);
 		text("4.0+ Magnitude", 75, 175);
 		text("Below 4.0", 75, 225);
 	}
@@ -184,6 +186,30 @@ public class EarthquakeCityMap extends PApplet {
 	// And LandQuakeMarkers have a "country" property set.
 	private void printQuakes() 
 	{
+		HashMap<String,Integer> hmap= new HashMap<String,Integer>();
+		int numOceanQuakes = 0;
+		for (Marker quaker : quakeMarkers) {
+			if (quaker.getClass() == LandQuakeMarker.class) {
+				String countryName = ((LandQuakeMarker)quaker).getCountry();
+				if (hmap.containsKey(countryName)) {
+					hmap.put(countryName, hmap.get(countryName)+1);
+				}
+				else {
+					hmap.put(countryName, 1);
+				}
+				
+			}
+			else {
+				numOceanQuakes = numOceanQuakes+1;
+			}
+		}
+		for (String countryName : hmap.keySet()) {
+			System.out.println(countryName + ": " + hmap.get(countryName));
+		}
+		System.out.println("Ocean Quakes: " + numOceanQuakes);
+		
+		
+		
 		// TODO: Implement this method
 	}
 	

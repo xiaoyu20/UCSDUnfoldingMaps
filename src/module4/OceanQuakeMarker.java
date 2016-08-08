@@ -9,7 +9,7 @@ import processing.core.PGraphics;
  * @author Your name here
  *
  */
-public class OceanQuakeMarker extends EarthquakeMarker {
+public class OceanQuakeMarker extends EarthquakeMarker implements processing.core.PConstants {
 	
 	public OceanQuakeMarker(PointFeature quake) {
 		super(quake);
@@ -30,7 +30,8 @@ public class OceanQuakeMarker extends EarthquakeMarker {
 		// and how it is set in the EarthquakeMarker constructor
 		
 		// TODO: Implement this method
-		
+		pg.rectMode(RADIUS);
+		pg.rect(x, y, radius, radius);
 	}
 	
 
